@@ -3,6 +3,9 @@ services:
     sonarqube:
         container_name: sonarqube
         image: sonarqube
+        networks:
+          - minikube
+
         depends_on:
             - sonarqube-database
         environment:
@@ -19,6 +22,9 @@ services:
 
     sonarqube-database:
         container_name: sonarqube-database
+        networks:
+          - minikube
+
         image: postgres:12
         environment:
             - POSTGRES_DB=sonarqube
@@ -31,6 +37,10 @@ services:
             -   5432:5432
 
 
+networks:
+  minikube:
+    external: true
+              
 volumes:
     sonarqube_database_data:
     sonarqube_bundled-plugins:
