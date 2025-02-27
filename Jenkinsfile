@@ -14,6 +14,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'master', url: 'https://github.com/ahmedbenameur/hello.git'
+                sh "cd output/java"
               
             }
         }
