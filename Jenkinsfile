@@ -24,7 +24,7 @@ pipeline {
                 // Run SonarQube Scanner with the correct environment
                 withEnv(["PATH+SCANNER=${WORKSPACE}/sonar-scanner-5.0.1.3006-linux/bin"]) {
                     sh '''
-                        sonar-scanner \
+                        sonar-scanner -X \
                           -Dsonar.projectKey=testtest \
                           -Dsonar.projectName=testtest \
                           -Dsonar.host.url=${SONAR_HOST_URL} \
