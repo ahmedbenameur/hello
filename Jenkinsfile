@@ -18,6 +18,28 @@ pipeline {
               
             }
         }
+
+
+        stage('Prepare SonarQube Scanner') {
+    steps {
+        script {
+            echo "🔍 Checking if SonarQube Scanner is installed..."
+        }
+        sh '''
+        if [ ! -d "sonar-scanner" ]; then
+            echo "🚀 Installing SonarQube Scanner..."
+            apt-get update && apt-get install -y wget unzip
+            wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip -O sonar-scanner.zip
+            unzip -q sonar-scanner.zip
+            mv sonar-scanner-5.0.1.3006-linux sonar-scanner
+            chmod +x sonar-scanner/bin/sonar-scanner
+        else
+            echo "✅ SonarQube Scanner is already installed."
+        fi
+        '''
+    }
+}
+
         
         stage('SonarQube Analysis') {
             steps {
