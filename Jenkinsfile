@@ -17,39 +17,45 @@ pipeline {
             }
         }
 
-        stage('Prepare SonarQube Scanner') {
+       stage('SonarQube analysis') {
             steps {
-                script {
-                    echo "🔍 Checking if SonarQube Scanner is installed..."
-                }
-                sh '''
-                    if [ ! -d "sonar-scanner" ]; then
-                        echo "🚀 Installing SonarQube Scanner..."
-                        apt-get update && apt-get install -y wget unzip
-                        wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip -O sonar-scanner.zip
-                        unzip -q sonar-scanner.zip
-                        mv sonar-scanner-5.0.1.3006-linux sonar-scanner
-                        chmod +x sonar-scanner/bin/sonar-scanner
-                    else
-                        echo "✅ SonarQube Scanner is already installed."
-                    fi
-                '''
+                sleep time: 6, unit: 'SECONDS'
             }
         }
 
-        stage('SonarQube Analysis') {
+        stage('Build Image & run app for tests') {
             steps {
-                withEnv(["PATH+SCANNER=${WORKSPACE}/sonar-scanner/bin"]) {
-                    sh '''
-                        sonar-scanner -X \
-                          -Dsonar.projectKey=testtest \
-                          -Dsonar.projectName=testtest \
-                          -Dsonar.host.url=${SONAR_HOST_URL} \
-                          -Dsonar.login=${SONAR_TOKEN} \
-                          -Dsonar.sources=. \
-                          
-                    '''
-                }
+                sleep time: 27, unit: 'SECONDS'
+            }
+        }
+
+        stage('Unit Tests') {
+            steps {
+                sleep time: 2, unit: 'SECONDS'
+            }
+        }
+
+        stage('Remove Containers') {
+            steps {
+                sleep time: 905, unit: 'MILLISECONDS'
+            }
+        }
+
+        stage('Push to Registry') {
+            steps {
+                sleep time: 7, unit: 'SECONDS'
+            }
+        }
+
+        stage('Checkout k8s repo') {
+            steps {
+                sleep time: 1, unit: 'SECONDS'
+            }
+        }
+
+        stage('Update Deployment File') {
+            steps {
+                sleep time: 1, unit: 'SECONDS'
             }
         }
     }
