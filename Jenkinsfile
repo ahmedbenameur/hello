@@ -17,7 +17,7 @@ pipeline {
             }
         }
 
-        stage('Analyse SonarQube') {
+        stage('Analyse statique via SonarQube') {
             steps {
                 sleep 6
             }
@@ -27,12 +27,12 @@ pipeline {
                 sleep 4
             }
         }
-        stage('Build Image & Run App for Tests') {
+        stage('Construction et exécution de l’image ') {
             steps {
                 sleep 27
             }
         }
-        stage('Push to Docker Registry') {
+        stage('Publication de l’image') {
             steps {
                 sleep 7
             }
