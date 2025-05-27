@@ -23,11 +23,7 @@ pipeline {
                 sleep 4
             }
         }
-        stage('Déploiement dans l’environnement prod') {
-            steps {
-                sleep 5
-            }
-        }
+      
         stage('Tests de charge ') {
             steps {
                 sleep 10
