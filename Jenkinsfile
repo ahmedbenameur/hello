@@ -18,13 +18,17 @@ pipeline {
         }
 
       
-        stage('Récupération de l’image') {
+          stage('Récupération de l’image') {
             steps {
                 sleep 4
             }
         }
-      
-        stage('Déploiement dans l’environnement prod ') {
+        stage('Déploiement dans l’environnement prod') {
+            steps {
+                sleep 5
+            }
+        }
+        stage('Tests de charge ') {
             steps {
                 sleep 10
             }
