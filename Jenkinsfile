@@ -1,15 +1,15 @@
 pipeline {
     agent any
-
+    
     options {
-        buildDiscarder(logRotator(numToKeepStr: '5')) // Garder seulement les 5 derniers builds
+        buildDiscarder(logRotator(numToKeepStr: '5')) // Keep only the last 5 builds
     }
-
+    
     environment {
-        SONAR_HOST_URL = 'http://sonarqube:9000' // URL du serveur SonarQube
-        SONAR_TOKEN = 'squ_4c2d3905392005ed1a3e82175e30dc8953c29d76' // Jeton d'authentification SonarQube
+        SONAR_HOST_URL = 'http://sonarqube:9000' // SonarQube server URL
+        SONAR_TOKEN = 'squ_4c2d3905392005ed1a3e82175e30dc8953c29d76' // SonarQube authentication token
     }
-
+    
     stages {
         stage('Checkout') {
             steps {
@@ -17,29 +17,44 @@ pipeline {
             }
         }
 
-        stage('Récupération de l\'image') {
+      
+        stage('Analyse statique via SonarQube') {
             steps {
-                sleep 4
+              sleep 15
+                }
             }
         }
 
-        stage('Déploiement dans l\'environnement QA') {
+        stage('Upload du JWA vers Nexus') {
             steps {
-                sleep 5
+                sh 'echo "Upload du fichier JWA vers Nexus..."'
+                sleep 14 // Simulation du temps réel d’upload
             }
         }
 
-        stage('Tests de charge') {
+        stage('Construction et exécution de l\'image') {
             steps {
-                sleep 10
+
+                sleep 27
+            }
+        }
+
+        stage('Publication de l\'image') {
+            steps {
+               
+                sleep 7
             }
         }
     }
 
     post {
         always {
-            echo 'Post Actions...'
-            sleep 8
+            stage('Post Actions') {
+                steps {
+                    echo 'Pipeline terminé. Envoi de la notification Slack ou log.'
+                    sleep 8
+                }
+            }
         }
     }
 }
