@@ -17,46 +17,35 @@ pipeline {
             }
         }
 
-       stage('SonarQube analysis') {
+       stage('Analyse SonarQube') {
             steps {
-                sleep time: 6, unit: 'SECONDS'
+                echo 'Analyse statique du code via SonarQube...'
             }
         }
-
-        stage('Build Image & run app for tests') {
+        stage('Upload JWA vers Nexus') {
             steps {
-                sleep time: 27, unit: 'SECONDS'
+                echo 'Envoi du fichier JWA vers Nexus...'
             }
         }
-
-        stage('Unit Tests') {
+        stage('Build Image Docker') {
             steps {
-                sleep time: 2, unit: 'SECONDS'
+                echo 'Construction de l’image Docker...'
             }
         }
-
-        stage('Remove Containers') {
+        stage('Push vers Docker Hub') {
             steps {
-                sleep time: 905, unit: 'MILLISECONDS'
+                echo 'Push de l’image dans le registre Docker...'
             }
         }
-
-        stage('Push to Registry') {
-            steps {
-                sleep time: 7, unit: 'SECONDS'
-            }
+    }
+    post {
+        success {
+            echo 'Pipeline Dev terminé avec succès.'
+            echo 'Notification Slack : Succès.'
         }
-
-        stage('Checkout k8s repo') {
-            steps {
-                sleep time: 1, unit: 'SECONDS'
-            }
-        }
-
-        stage('Update Deployment File') {
-            steps {
-                sleep time: 1, unit: 'SECONDS'
-            }
+        failure {
+            echo 'Échec du pipeline Dev.'
+            echo 'Notification Slack : Échec.'
         }
     }
 }
