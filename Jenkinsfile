@@ -24,7 +24,7 @@ pipeline {
             }
         }
       
-        stage('Tests de charge ') {
+        stage('Déploiement dans l’environnement prod ') {
             steps {
                 sleep 10
             }
