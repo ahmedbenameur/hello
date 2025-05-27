@@ -17,24 +17,19 @@ pipeline {
             }
         }
 
-        stage('Analyse statique via SonarQube') {
-            steps {
-                sleep 6
-            }
-        }
-        stage('Upload du JWA vers Nexus') {
+        stage('Récupération de l’image') {
             steps {
                 sleep 4
             }
         }
-        stage('Construction et exécution de l’image ') {
+        stage('Déploiement dans l’environnement QA') {
             steps {
-                sleep 27
+                sleep 5
             }
         }
-        stage('Publication de l’image') {
+        stage('Tests de charge ') {
             steps {
-                sleep 7
+                sleep 10
             }
         }
     }
@@ -47,4 +42,3 @@ pipeline {
         }
     }
 }
-
