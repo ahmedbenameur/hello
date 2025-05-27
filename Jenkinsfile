@@ -18,19 +18,24 @@ pipeline {
         }
 
       
-          stage('Récupération de l’image') {
+         stage('Analyse SonarQube') {
+            steps {
+                sleep 6
+            }
+        }
+        stage('Upload du JWA vers Nexus') {
             steps {
                 sleep 4
             }
         }
-        stage('Déploiement dans l’environnement prod') {
+        stage('Build Image & Run App for Tests') {
             steps {
-                sleep 5
+                sleep 27
             }
         }
-        stage('Tests de charge ') {
+        stage('Push to Docker Registry') {
             steps {
-                sleep 10
+                sleep 7
             }
         }
     }
