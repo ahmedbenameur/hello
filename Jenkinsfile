@@ -32,10 +32,10 @@ pipeline {
     }
     post {
         success {
-            sleep 1
+            sleep 8
         }
         failure {
-            sleep 1
+            sleep 8
         }
     }
 }
