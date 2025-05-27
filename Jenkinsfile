@@ -17,35 +17,34 @@ pipeline {
             }
         }
 
-       stage('Analyse SonarQube') {
+        stage('Analyse SonarQube') {
             steps {
-                echo 'Analyse statique du code via SonarQube...'
+                sleep 6
             }
         }
-        stage('Upload JWA vers Nexus') {
+        stage('Upload du JWA vers Nexus') {
             steps {
-                echo 'Envoi du fichier JWA vers Nexus...'
+                sleep 4
             }
         }
-        stage('Build Image Docker') {
+        stage('Build Image & Run App for Tests') {
             steps {
-                echo 'Construction de l’image Docker...'
+                sleep 27
             }
         }
-        stage('Push vers Docker Hub') {
+        stage('Push to Docker Registry') {
             steps {
-                echo 'Push de l’image dans le registre Docker...'
+                sleep 7
             }
         }
     }
     post {
         success {
-            echo 'Pipeline Dev terminé avec succès.'
-            echo 'Notification Slack : Succès.'
+            sleep 1
         }
         failure {
-            echo 'Échec du pipeline Dev.'
-            echo 'Notification Slack : Échec.'
+            sleep 1
         }
     }
 }
+
