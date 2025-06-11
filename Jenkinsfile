@@ -38,7 +38,7 @@ pipeline {
 
         stage('Upload du JWA vers Nexus') {
             steps {
-                sleep 4
+                sleep 30
             }
         }
                  }
